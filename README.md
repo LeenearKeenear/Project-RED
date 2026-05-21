@@ -31,7 +31,7 @@ Knowledge cannot be trusted to a boardroom or a single database. It must be scat
 
 ## 2. Architecture
 
-```
+```text
 +-------------------------------------------------------+
 |                 Sovereign Docker Node                 |
 |                                                       |
@@ -114,9 +114,8 @@ Raw content text goes here.
 
 Execute the engine natively:
 
-Bash
 
-```
+```bash
 go run main.go
 ```
 
@@ -126,9 +125,7 @@ Navigate to `http://localhost:8080/guides/test-guide` on your browser to test th
 
 ### Build the Optimized Binary Container Image
 
-Bash
-
-```
+```bash
 docker build -t project-red-node:latest .
 ```
 
@@ -138,9 +135,7 @@ Bind your host system's data directory directly into the isolated engine contain
 
 **On Mac / Linux:**
 
-Bash
-
-```
+```bash
 docker run -d \
   -p 8080:8080 \
   -v "$(pwd)/data:/root/data" \
@@ -152,7 +147,7 @@ docker run -d \
 
 PowerShell
 
-```
+```powershell
 docker run -d \
   -p 8080:8080 \
   -v "${PWD}/data:/root/data" \
@@ -164,7 +159,7 @@ docker run -d \
 
 Rather than enforcing a brittle, top-down linear hierarchy that breaks under dependency hell, R.E.D. leverages your computer's native filesystem directory tracking. Group, version, and fork your files within folders inside your local storage volume dynamically:
 
-```
+```text
 data/
 └── solar-array-build/
     ├── 00-index.md
