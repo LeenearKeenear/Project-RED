@@ -68,7 +68,9 @@ GLOBAL INTERNET & TOR NETWORK
 
 ## 4. Installation & Deployment
 
-For full setup instructions—including configuring your local workspace, building the Docker matrix, and launching both the Clearnet Gateway and the Air-Gapped Onion Vault—please see our comprehensive **[Node Operator Installation Guide](INSTALL.md)**.
+For full setup instructions—including configuring your local workspace, building the Docker matrix, and launching both the Clearnet Gateway and the Air-Gapped Onion Vault—please read the installation guide:
+
+**[Node Operator Installation Guide](INSTALL.md)**.
 
 ## 5. Simulating Knowledge Base Structures
 
