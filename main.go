@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"html/template"
 	"log"
+	"mime"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -228,7 +229,7 @@ func handleDownloadGuide(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
-	w.Header().Set("Content-Disposition", "attachment; filename="+filepath.Base(targetFile))
+	w.Header().Set("Content-Disposition", mime.FormatMediaType("attachment", map[string]string{"filename": filepath.Base(targetFile)}))
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.Write(fileBytes)
 }
