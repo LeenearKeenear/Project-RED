@@ -139,7 +139,8 @@ func main() {
 		log.Fatalf("Failed to parse template: %v", err)
 	}
 
-	fs := http.FileServer(http.Dir("static"))
+	// Make sure this is registered in your main function before starting the server
+	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {

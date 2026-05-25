@@ -8,7 +8,7 @@ last_editor: "Standard Codebase"
 discussion_hub: "https://discord.gg/example"
 ---
 
-
+![A cute dog!](/static/images/cuteDog.jpg)
 The collapse of the B.L.U.E. System ecosystem—and the frantic, defensive reactions of its leadership when presented with a live, functioning prototype—serves as an invaluable case study in modern software development. It highlights a painful truth: **the internet is full of visionary ideas, but short on executable logic.**
 
 As an engineer completing a production-ready, concurrent Go framework inside a weekend, watching a community devolve into bureaucratic stalling, authoritarian bans, and sci-fi deflections provided clear boundaries on how an open-source project *should* and *should not* be managed.

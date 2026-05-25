@@ -34,3 +34,28 @@ If a newly uploaded guide fails to display content or the metadata ribbon breaks
 4. **Browser Cache:** Perform a hard refresh (`Ctrl+Shift+R` or `Cmd+Shift+R`) to clear cached CSS/HTML.
 5. **Engine Logs:** Check the server output by running `docker logs red_light_node` to spot any `goldmark` or YAML parsing errors.
 6. **Container Sync:** If you updated the Go engine recently, ensure you run `docker-compose build --no-cache && docker-compose up -d`.
+7. 
+# Project R.E.D. Network Topology Verification
+
+Below is the architectural flow diagram verifying the stateless dual-tier data pathing of your independent gateway node.
+
+```mermaid
+graph TD
+    %% Define Styles
+    classDef secure stroke:#33cc33,stroke-width:2px;
+    classDef client stroke:#3399ff,stroke-width:2px;
+    classDef backend stroke:#ffcc00,stroke-width:2px;
+
+    User([Reader Client Browser]):::client -->|1. Request Route| Tor[Tor Onion Hidden Service Gateway / Clearnet Proxy]:::secure
+    Tor -->|2. Secure Network Bridge| Docker[Dual-Tier Isolated Docker Container Network]:::secure
+    Docker -->|3. Pass Request| GoEngine[Stateless Go Runtime Server Binary]:::backend
+    
+    subgraph Local Storage Volume
+        Filesystem[(Immutable Local Filesystem Directory)]:::secure
+    end
+
+    GoEngine -->|4. Read Raw Bytes| Filesystem
+    Filesystem -->|5. Return Markdown String| GoEngine
+    GoEngine -->|6. Compute SHA-256 Integrity Hash| Hash[X-RED-Content-Hash Generated]:::backend
+    Hash -->|7. Inject into Global Layout Template| Output[Render Clean HTML]:::backend
+    Output -->|8. Stream Streamed Bytes| User
