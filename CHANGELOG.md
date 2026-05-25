@@ -14,6 +14,7 @@ Project R.E.D. (Sovereign Knowledge Node Engine) enters its first public alpha. 
 - **Remote Markdown Ingestion:** Added a `/import` POST endpoint. The engine can now fetch raw `.md` files directly from remote URLs.
 - **Dynamic File Structuring:** The Go backend now automatically parses imported URLs and replicates their domain/path structure locally inside the `data/` volume.
 - **Stateless Manifest Generation:** Added a `/manifest` endpoint. The Go runtime dynamically walks the local file tree and serves a JSON map of all available knowledge files on demand.
+- **Image and Diagrams Support:** Added a simple function to render mermaid diagrams and display images on the website. I am still working on making the download functionality for entire guides.
 - **Hierarchical "QTreeView" UI:** Engineered a dynamic JavaScript frontend component that groups flat directory paths from the manifest into collapsible, nested folder accordions.
 - **Off-Canvas Navigation:** Implemented a pure CSS/JS sliding side panel for cross-guide navigation, eliminating the need to return to the root index.
 - **Dual-Tier Docker Matrix:** Published the `docker-compose.yml` for instantly deploying the air-gapped Onion Vault alongside the Clearnet Gateway.

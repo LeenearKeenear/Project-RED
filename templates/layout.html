@@ -203,25 +203,24 @@
                     }
 
                     // 2. Generate the HTML structure (The "QTreeView")
+                    // 2. Generate the HTML structure (Inside your layout.html script tag)
                     let finalHtml = "";
                     for (const [folder, files] of Object.entries(groups)) {
                         finalHtml += `
                                     <div class="panel-folder">
                                         <div class="panel-folder-header" onclick="toggleFolderBox(this)">
-                                            <span>📂</span> <span style="text-transform: uppercase; font-weight: bold;">${folder}</span>
+                                            <span class="folder-icon"></span> <span style="text-transform: uppercase; font-weight: bold;">${folder}</span>
                                         </div>
                                         <div class="panel-folder-content">
                                     `;
 
                         // Add the individual files inside the folder box
                         for (const file of files) {
-                            // Using the default icon. Change to your <img> tag if you added logos!
-                            finalHtml += `<a href="/guides/${file.path}" class="panel-link">📄 ${file.title}</a>`;
+                            finalHtml += `<a href="/guides/${file.path}" class="panel-link"> ${file.title}</a>`;
                         }
 
-                        finalHtml += `</div></div>`; // Close content and folder divs
+                        finalHtml += `</div></div>`;
                     }
-
                     guideList.innerHTML = finalHtml;
                 } catch (e) {
                     guideList.innerHTML =
@@ -233,14 +232,6 @@
             function toggleFolderBox(headerElement) {
                 const contentBox = headerElement.nextElementSibling;
                 contentBox.classList.toggle("open");
-
-                // Swap the folder icon from closed to open
-                const icon = headerElement.querySelector("span");
-                if (contentBox.classList.contains("open")) {
-                    icon.textContent = "📂";
-                } else {
-                    icon.textContent = "📁";
-                }
             }
 
             function togglePanel() {
