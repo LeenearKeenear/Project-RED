@@ -1,0 +1,56 @@
+name: Release Project R.E.D. Engine
+
+on:
+  push:
+    tags:
+      - "v*" # This workflow ONLY triggers when you push a tag starting with "v"
+
+permissions:
+  contents: write # Required to create the GitHub Release
+
+jobs:
+  build-and-release:
+    name: Build and Release Binaries
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # We define the specific binaries we want to compile
+        include:
+          - goos: linux
+            goarch: amd64
+            name: red-node-linux-amd64
+          - goos: windows
+            goarch: amd64
+            name: red-node-windows-amd64.exe
+          - goos: darwin
+            goarch: amd64
+            name: red-node-macos-intel
+          - goos: darwin
+            goarch: arm64
+            name: red-node-macos-arm64
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21" # Match this to your go.mod version
+
+      - name: Install Dependencies
+        run: go mod download
+
+      - name: Build Binary
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        # This ldflags command injects the git tag into your main.Version variable
+        run: |
+          go build -ldflags="-X 'main.Version=${{ github.ref_name }}'" -o ${{ matrix.name }} .
+
+      - name: Publish to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ matrix.name }}
+          generate_release_notes: true

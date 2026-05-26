@@ -1,0 +1,36 @@
+name: Project R.E.D. Engine CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Build & Verify Node
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Set up the Go environment (adjust version if you are using a specific one)
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+          cache: true # Automatically caches go.mod downloads for faster runs
+
+      # 3. Download all required modules (Goldmark, Frontmatter, etc.)
+      - name: Install Dependencies
+        run: go mod download
+
+      # 4. Verify that the code compiles flawlessly
+      - name: Build Engine
+        run: go build -v ./...
+
+      # 5. Run tests (if you add any _test.go files later)
+      - name: Run Tests
+        run: go test -v ./...

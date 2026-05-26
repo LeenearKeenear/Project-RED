@@ -1,6 +1,7 @@
 package render
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"html/template"
@@ -23,7 +24,7 @@ func Markdown(raw []byte) (*Result, error) {
 	hash := hex.EncodeToString(sum[:])
 
 	var meta config.PostMetadata
-	body, err := frontmatter.Parse(strings.NewReader(string(raw)), &meta)
+	body, err := frontmatter.Parse(bytes.NewReader(raw), &meta)
 	if err != nil {
 		return nil, err
 	}
